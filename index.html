@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Housewarming Invitation</title>
+<style>
+:root{
+  --bg:#05211a;--bg2:#0e4032;--ivory:#f8f2e4;--ivory2:#efe5cc;--ink:#12382d;--muted:#5d6f64;
+  --gold1:#f4dc93;--gold2:#c9a24a;--gold3:#8c6b25;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#03150f;--bg2:#0a2c22}}
+:root[data-theme="dark"]{--bg:#03150f;--bg2:#0a2c22}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box;margin:0}
+body{min-height:100%;color:var(--ink);font-family:Georgia,"Palatino Linotype",Palatino,"Times New Roman",serif;
+  background:
+   url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80'%3E%3Cg fill='none' stroke='%23c9a24a' stroke-opacity='.13' stroke-width='1'%3E%3Cpath d='M40 6l8 22 22-8-14 20 14 20-22-8-8 22-8-22-22 8 14-20-14-20 22 8z'/%3E%3C/g%3E%3C/svg%3E"),
+   radial-gradient(ellipse at 50% 0%,var(--bg2),var(--bg) 75%);
+  background-attachment:fixed;padding:28px 16px 40px;display:flex;justify-content:center;overflow-x:hidden}
+canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.wrap{position:relative;z-index:1;width:100%;max-width:430px}
+.gold{background:linear-gradient(110deg,var(--gold3),var(--gold1) 35%,var(--gold2) 55%,var(--gold1) 75%,var(--gold3));
+  background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 7s linear infinite}
+@keyframes shine{to{background-position:-220% 0}}
+
+.card{position:relative;background:linear-gradient(170deg,var(--ivory),var(--ivory2));border-radius:200px 200px 10px 10px;
+  padding:0 26px 38px;text-align:center;box-shadow:0 0 0 2px var(--gold2),0 0 0 8px var(--bg),0 0 0 9px var(--gold3),0 40px 90px rgba(0,0,0,.65);overflow:hidden}
+.arch{margin:0 -26px 6px;padding:62px 26px 34px;background:linear-gradient(180deg,#0d3a2d,#06251d);color:var(--gold1);position:relative}
+.arch::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:22px;background:linear-gradient(var(--ivory),var(--ivory));
+  -webkit-mask:radial-gradient(circle at 11px 22px,transparent 10px,#000 10.5px) 0 0/22px 22px repeat-x;mask:radial-gradient(circle at 11px 22px,transparent 10px,#000 10.5px) 0 0/22px 22px repeat-x}
+.bism{font-size:20px;line-height:1.6;direction:rtl;font-family:"Geeza Pro","Noto Naskh Arabic","Traditional Arabic",serif;color:var(--gold1);letter-spacing:.02em}
+.house{width:62px;height:62px;margin:14px auto 0;display:block}
+.eyebrow{font-size:11px;letter-spacing:.38em;text-transform:uppercase;color:var(--muted);margin-top:26px}
+h1{font-weight:400;font-size:40px;line-height:1.05;margin:10px 0 0;letter-spacing:.01em}
+h1 em{display:block;font-size:19px;font-style:italic;letter-spacing:.34em;text-transform:uppercase;margin-top:8px;color:var(--ink);-webkit-text-fill-color:var(--ink)}
+.orn{display:flex;align-items:center;gap:10px;margin:18px auto;max-width:230px;color:var(--gold2)}
+.orn i{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--gold2),transparent)}
+.lead{font-size:15px;line-height:1.75;color:var(--muted);font-style:italic;padding:0 6px}
+.hosts{margin-top:18px}
+.hosts small{display:block;font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--muted)}
+.hosts div{font-size:27px;margin-top:6px;letter-spacing:.02em}
+.hosts div span{font-style:italic;font-size:22px;color:var(--gold3);padding:0 6px}
+.date{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;margin:26px 0 4px;gap:6px}
+.date small{display:block;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.date strong{font-weight:400;font-size:17px}
+.date .big{padding:2px 18px;border-inline:1px solid var(--gold2)}
+.date .big strong{font-size:54px;line-height:1;display:block}
+.venue{margin-top:24px;padding:20px 12px;border:1px solid rgba(201,162,74,.6);border-radius:90px 90px 8px 8px;background:rgba(255,255,255,.35)}
+.venue small{display:block;font-size:10px;letter-spacing:.35em;text-transform:uppercase;color:var(--muted)}
+.venue h2{font-weight:400;font-size:22px;letter-spacing:.14em;margin:8px 0 2px;text-transform:uppercase}
+.venue p{font-size:15px;font-style:italic;color:var(--muted)}
+.btns{display:flex;flex-direction:column;gap:10px;margin-top:26px}
+.btn{font:inherit;font-size:12px;letter-spacing:.3em;text-transform:uppercase;text-decoration:none;padding:15px 18px;border-radius:40px;transition:.3s;text-align:center}
+.primary{background:linear-gradient(135deg,#0d3a2d,#146149);color:var(--gold1);border:1px solid var(--gold2);box-shadow:0 10px 22px rgba(10,50,38,.35)}
+.primary:hover{transform:translateY(-2px);box-shadow:0 14px 28px rgba(10,50,38,.5)}
+.ghost{color:var(--ink);border:1px solid var(--gold2)}
+.ghost:hover{background:rgba(201,162,74,.16)}
+.foot{margin-top:22px;font-size:12px;font-style:italic;color:var(--muted);letter-spacing:.06em}
+.rv{opacity:0;transform:translateY(16px);animation:in .9s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(.15s + var(--i)*.13s)}
+@keyframes in{to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important;animation-delay:0s!important}}
+</style>
+</head>
+<body>
+<canvas id="fx"></canvas>
+<main class="wrap">
+  <article class="card">
+    <header class="arch">
+      <div class="bism rv" style="--i:0" lang="ar">بسم الله الرحمن الرحيم</div>
+      <svg class="house rv" style="--i:1" viewBox="0 0 64 64" fill="none" stroke="#f4dc93" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M8 31 32 10l24 21"/><path d="M14 27v26h36V27"/><path d="M27 53V38a5 5 0 0 1 10 0v15"/>
+        <path d="M32 19l1.6 3.4 3.7.5-2.7 2.6.7 3.7-3.3-1.8-3.3 1.8.7-3.7-2.7-2.6 3.7-.5z" fill="#f4dc93" stroke="none"/>
+      </svg>
+    </header>
+
+    <div class="eyebrow rv" style="--i:2">Together with our families</div>
+    <h1 class="gold rv" style="--i:3">Housewarming<em>Ceremony</em></h1>
+    <div class="orn rv" style="--i:4"><i></i>&#10022;<i></i></div>
+    <p class="lead rv" style="--i:5">With heartfelt gratitude and joy, we invite you to bless our new home with your presence and prayers.</p>
+
+    <div class="hosts rv" style="--i:6"><small>Hosted by</small><div>Mohammed <span>&amp;</span> Fathima</div></div>
+
+    <div class="date rv" style="--i:7">
+      <div><small id="wd"></small><strong id="mon"></strong></div>
+      <div class="big"><small>Save the date</small><strong class="gold" id="dd"></strong></div>
+      <div><small id="yr"></small><strong id="tm"></strong></div>
+    </div>
+
+    <section class="venue rv" style="--i:8">
+      <small>The Residence</small>
+      <h2>Fathma&rsquo;s Manzil</h2>
+      <p>Malappuram</p>
+    </section>
+
+    <div class="btns rv" style="--i:9">
+      <a class="btn primary" id="map" href="#" target="_blank" rel="noopener">View Location</a>
+      <a class="btn ghost" id="cal" href="#" target="_blank" rel="noopener">Add to Calendar</a>
+    </div>
+    <p class="foot rv" style="--i:10">Your presence will make our home complete.</p>
+  </article>
+</main>
+
+<script>
+// Edit the date and time here
+const EVENT = { date: new Date(2026, 11, 12, 18, 0), place: "Fathma\u2019s Manzil, Malappuram" };
+const $ = id => document.getElementById(id), d = EVENT.date;
+$("wd").textContent  = d.toLocaleDateString("en-GB",{weekday:"long"});
+$("mon").textContent = d.toLocaleDateString("en-GB",{month:"long"});
+$("dd").textContent  = String(d.getDate()).padStart(2,"0");
+$("yr").textContent  = d.getFullYear();
+$("tm").textContent  = d.toLocaleTimeString("en-GB",{hour:"numeric",minute:"2-digit",hour12:true});
+$("map").href = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(EVENT.place);
+const f = x => x.toISOString().replace(/[-:]|\.\d{3}/g,"");
+$("cal").href = "https://calendar.google.com/calendar/render?action=TEMPLATE&text=" + encodeURIComponent("Housewarming \u2013 Mohammed & Fathima") +
+  "&dates=" + f(d) + "/" + f(new Date(d.getTime()+3*36e5)) + "&location=" + encodeURIComponent(EVENT.place);
+
+// Soft drifting gold light
+const cv = $("fx"), ctx = cv.getContext("2d"); let W, H;
+const size = () => { const r = devicePixelRatio||1; W = cv.width = innerWidth*r; H = cv.height = innerHeight*r; };
+addEventListener("resize", size); size();
+const dots = Array.from({length:45}, () => ({x:Math.random(), y:Math.random(), r:Math.random()*1.6+.4, s:Math.random()*.0004+.0001, a:Math.random()*6}));
+(function loop(t){
+  ctx.clearRect(0,0,W,H);
+  for(const p of dots){
+    p.y -= p.s; if(p.y < -.02) p.y = 1.02;
+    const al = .15 + .35*Math.abs(Math.sin(t/1800 + p.a));
+    ctx.beginPath(); ctx.arc(p.x*W + Math.sin(t/3000+p.a)*12, p.y*H, p.r*(devicePixelRatio||1), 0, 6.283);
+    ctx.fillStyle = "rgba(244,220,147,"+al+")"; ctx.fill();
+  }
+  requestAnimationFrame(loop);
+})(0);
+</script>
+</body>
+</html>
